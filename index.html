@@ -179,10 +179,11 @@ button{font-family:inherit;}
 .carousel-track::-webkit-scrollbar{display:none;}
 .prize-card{
   flex:0 0 39%;scroll-snap-align:center;position:relative;
-  border-radius:16px;overflow:hidden;
+  border-radius:18px;overflow:hidden;
   border:2px solid rgba(253,236,184,.5);
   box-shadow:0 14px 30px rgba(15,1,4,.5);
   transition:transform .25s ease,opacity .25s ease;
+  transform-origin:50% 120%;
   backface-visibility:hidden;cursor:pointer;
 }
 .prize-card.gold{
@@ -204,7 +205,7 @@ button{font-family:inherit;}
 @keyframes sheen{0%,10%{left:-60%;}60%,100%{left:135%;}}
 .card-img{
   position:relative;z-index:2;margin:8px 8px 0;height:132px;
-  border-radius:11px;overflow:hidden;background:#fff;border:1.5px solid rgba(255,255,255,.85);
+  border-radius:12px;overflow:hidden;background:#fff;border:1.5px solid rgba(255,255,255,.85);
 }
 .card-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .card-info{position:relative;z-index:2;padding:10px 8px 12px;text-align:center;}
@@ -224,38 +225,26 @@ button{font-family:inherit;}
 
 /* ===== 抽奖按钮 ===== */
 .draw-zone{position:relative;z-index:2;padding:12px 20px 6px;display:flex;flex-direction:column;align-items:center;}
-.draw-wrap{position:relative;width:232px;height:232px;display:flex;align-items:center;justify-content:center;}
-.draw-ring{
-  position:absolute;width:224px;height:224px;border-radius:50%;
-  border:2px dashed rgba(240,189,63,.5);animation:spin 24s linear infinite;
-}
-.draw-ring2{
-  position:absolute;width:204px;height:204px;border-radius:50%;
-  border:1.5px dotted rgba(240,189,63,.32);animation:spin 16s linear infinite reverse;
-}
-.draw-wrap.is-off .draw-ring,.draw-wrap.is-off .draw-ring2{animation-play-state:paused;opacity:.35;}
-@keyframes spin{to{transform:rotate(360deg);}}
+.draw-wrap{position:relative;width:100%;display:flex;align-items:center;justify-content:center;}
 .draw-btn{
-  position:relative;width:190px;height:190px;border-radius:50%;cursor:pointer;
-  background:conic-gradient(from 200deg,#8a5d16,#f0bd3f,#fef7e0,#f6d87e,#dfa72b,#8a5d16,#f0bd3f,#8a5d16);
-  padding:8px;border:2px solid #5e3a10;
-  box-shadow:0 9px 0 #4a2f0d,0 20px 44px rgba(0,0,0,.55);
+  position:relative;width:264px;height:78px;border-radius:24px;cursor:pointer;
+  background:linear-gradient(180deg,#fbe7a8,#dfa72b);
+  padding:6px;border:2px solid #8a5d16;
+  box-shadow:0 7px 0 #6b4414,0 14px 30px rgba(0,0,0,.45);
   transition:transform .12s,box-shadow .12s,filter .2s;
 }
-.draw-btn:active{transform:translateY(6px);box-shadow:0 3px 0 #4a2f0d,0 10px 24px rgba(0,0,0,.5);}
+.draw-btn:active{transform:translateY(5px);box-shadow:0 2px 0 #6b4414,0 8px 18px rgba(0,0,0,.45);}
 .draw-btn::before{
-  content:"";position:absolute;inset:13px;border-radius:50%;
-  background:radial-gradient(circle at 50% 32%,#e83a45,#b31620 55%,#7a1018 100%);
-  border:2px solid rgba(240,189,63,.7);
-  box-shadow:inset 0 6px 14px rgba(0,0,0,.42),inset 0 -4px 10px rgba(255,255,255,.18);
+  content:"";position:absolute;inset:7px;border-radius:18px;
+  background:linear-gradient(180deg,#e53a45,#b31620 58%,#8a1218);
+  border:1.5px solid rgba(240,189,63,.7);
+  box-shadow:inset 0 5px 12px rgba(0,0,0,.38),inset 0 -3px 8px rgba(255,255,255,.16);
 }
-.draw-btn .inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
-.draw-btn .big{font-family:var(--font-display);font-weight:900;font-size:33px;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.4);letter-spacing:1px;}
-.draw-btn .cnt{font-size:12.5px;color:#ffeec2;font-weight:500;}
-.draw-btn .cnt b{color:#fff;font-size:16px;font-family:"Playfair Display";margin:0 2px;}
+.draw-btn .inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
+.draw-btn .big{font-family:var(--font-display);font-weight:900;font-size:27px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);letter-spacing:2px;}
 .draw-btn.disabled{filter:grayscale(.75) brightness(.8);cursor:not-allowed;}
 .guarantee{
-  display:inline-flex;align-items:center;gap:7px;margin-top:18px;
+  display:inline-flex;align-items:center;gap:7px;margin-top:12px;
   background:rgba(20,3,6,.35);border:1px solid rgba(240,189,63,.28);
   border-radius:999px;padding:8px 17px;font-size:12px;color:rgba(255,238,194,.85);
 }
@@ -590,8 +579,6 @@ button{font-family:inherit;}
     <!-- 抽奖按钮 -->
     <section class="draw-zone">
       <div class="draw-wrap" id="drawWrap">
-        <div class="draw-ring2"></div>
-        <div class="draw-ring"></div>
         <div class="draw-btn" id="drawBtn" role="button" tabindex="0" aria-label="立即抽奖">
           <div class="inner">
             <div class="big">立即抽奖</div>
@@ -761,23 +748,33 @@ function scrollToCard(i){
 }
 function updateCarousel(){
   const vw = track.clientWidth;
-  const center = track.scrollLeft + vw/2;
+  const viewCenter = track.scrollLeft + vw/2;
   const atStart = track.scrollLeft <= 2;
   let best = 0, bestDist = Infinity;
   cardEls.forEach((card,i)=>{
     const cc = card.offsetLeft + card.offsetWidth/2;
-    let off = (cc - center)/vw;
+    let off = Math.abs(cc - viewCenter)/vw;
     if(atStart && i===0) off = 0;
-    const a = Math.abs(off);
-    if(a < bestDist){ bestDist = a; best = i; }
-    const scale = Math.max(0.88, 1 - a*0.12);
-    const ry = Math.max(-22, Math.min(22, off * -24));
-    const op = Math.max(0.55, 1 - a*0.25);
-    card.style.transform = `perspective(900px) rotateY(${ry}deg) scale(${scale})`;
+    if(off < bestDist){ bestDist = off; best = i; }
+  });
+  if(atStart) best = 0;
+  const activeCard = cardEls[best];
+  const activeCenter = activeCard.offsetLeft + activeCard.offsetWidth/2;
+  const cardW = activeCard.offsetWidth + 10;
+  cardEls.forEach((card,i)=>{
+    const cc = card.offsetLeft + card.offsetWidth/2;
+    let step = (cc - activeCenter)/cardW;
+    if(atStart && i===0) step = 0;
+    const a = Math.min(3, Math.abs(step));
+    const scale = Math.max(0.86, 1 - a*0.06);
+    const rz = Math.max(-18, Math.min(18, step * 13));
+    const ry = Math.max(-14, Math.min(14, step * -12));
+    const y = Math.min(30, a*15);
+    const op = Math.max(0.55, 1 - a*0.16);
+    card.style.transform = `perspective(1000px) translateY(${y}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${scale})`;
     card.style.opacity = op;
     card.style.zIndex = 100 - Math.round(a*20);
   });
-  if(atStart) best = 0;
   if(best !== activeIdx){
     activeIdx = best;
     [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===activeIdx));
