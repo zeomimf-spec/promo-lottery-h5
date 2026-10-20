@@ -138,7 +138,7 @@ button{font-family:inherit;}
   transform-origin:50% 110%;
   cursor:pointer;
 }
-.prize-card:last-child{margin-right:18px;}
+.prize-card:last-child{margin-right:0;}
 .prize-card.gold{
   background:linear-gradient(170deg,#FFF8E4 0%,#FCE9BE 55%,#F6D78C 100%);
   border-color:#F2D598;
@@ -662,14 +662,22 @@ let drawCount = 5;
 const tasks = {invite:{done:false, count:0}, checkin:{done:false}, welfare:{done:false}};
 let prizeRecordsAll = [...prizeRecords];
 
-/* ===== 轮播：Coverflow ===== */
+/* ===== 轮播：Coverflow + 自动播放 ===== */
 const track = document.getElementById("track");
 const dots = document.getElementById("dots");
+const REAL_N = PRIZES.length;
+/* 克隆一组卡牌用于无缝循环（前 10 张为真实卡，抽奖取图仅用前 10 张） */
+const realCardEls = [...track.querySelectorAll(".prize-card")];
+realCardEls.forEach(c=>track.appendChild(c.cloneNode(true)));
 const cardEls = [...track.querySelectorAll(".prize-card")];
 let activeIdx = 0;
+let seam = 0;
+function calcSeam(){
+  if(cardEls.length > REAL_N) seam = cardEls[REAL_N].offsetLeft - cardEls[0].offsetLeft;
+}
 
 function buildDots(){
-  dots.innerHTML = cardEls.map((_,i)=>`<i class="${i===0?'on':''}" data-i="${i}"></i>`).join("");
+  dots.innerHTML = realCardEls.map((_,i)=>`<i class="${i===0?'on':''}" data-i="${i}"></i>`).join("");
 }
 function targetX(i){
   const card = cardEls[i];
@@ -687,8 +695,17 @@ function snapToNearest(){
     const d=Math.abs(c.offsetLeft + c.offsetWidth/2 - center);
     if(d<bd){bd=d;best=i;}
   });
-  const tx=targetX(best);
-  if(Math.abs(track.scrollLeft-tx)>3){ scrollToCard(best); }
+  const real = best % REAL_N;
+  let tx = targetX(real);
+  if(seam>0){
+    let period = Math.round((track.scrollLeft - tx)/seam);
+    if(!isFinite(period)) period=0;
+    tx += period*seam;
+    const max = track.scrollWidth - track.clientWidth;
+    if(tx>max) tx-=seam;
+    if(tx<0) tx+=seam;
+  }
+  if(Math.abs(track.scrollLeft-tx)>2){ track.scrollTo({left:tx, behavior:"smooth"}); }
 }
 function updateCarousel(){
   const vw = track.clientWidth;
@@ -702,6 +719,7 @@ function updateCarousel(){
     if(off < bestDist){ bestDist = off; best = i; }
   });
   if(atStart) best = 0;
+  const realBest = best % REAL_N;
   const activeCard = cardEls[best];
   const ax = activeCard.offsetLeft;
   const stride = cardEls.length > 1 ? Math.abs(cardEls[1].offsetLeft - cardEls[0].offsetLeft) : 1;
@@ -716,24 +734,103 @@ function updateCarousel(){
     card.style.opacity = op;
     card.style.zIndex = 100 - Math.round(step*20);
   });
-  if(best !== activeIdx){
-    activeIdx = best;
+  if(realBest !== activeIdx){
+    activeIdx = realBest;
     [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===activeIdx));
   }
 }
+
+/* ===== 自动播放：进入 2s 后缓慢左移，手动滑动后停 2s 再续播 ===== */
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const AUTO_SPEED = 22;        // px/s，缓慢左移
+const START_DELAY = 2000;     // 访问 2s 后开始
+const RESUME_DELAY = 2000;    // 停止滑动后 2s 续播
+let isPlaying=false, rafId=null, lastTs=0, autoX=0;
+let userTouching=false, resumeTimer=null;
+
+function overlayOpen(){
+  return document.getElementById("resultMask").classList.contains("show")
+      || document.getElementById("sheetMask").classList.contains("show");
+}
+function frame(ts){
+  if(!isPlaying) return;
+  if(!lastTs) lastTs=ts;
+  const dt=Math.min(60, ts-lastTs)/1000; lastTs=ts;
+  if(!userTouching && !overlayOpen() && seam>0){
+    autoX += AUTO_SPEED*dt;
+    if(autoX>=seam) autoX-=seam;          // 无缝循环：克隆卡位置完全相同
+    track.scrollLeft=autoX;               // 用浮点累加器，避免小数被整数舍入
+  }
+  rafId=requestAnimationFrame(frame);
+}
+function startAutoplay(){
+  if(reduceMotion) return;
+  if(isPlaying || overlayOpen()) return;
+  if(seam<=0) calcSeam();
+  if(seam>0){ while(track.scrollLeft>=seam) track.scrollLeft-=seam; }
+  autoX=track.scrollLeft;
+  isPlaying=true; lastTs=0;
+  clearTimeout(snapTimer);
+  rafId=requestAnimationFrame(frame);
+}
+function stopAutoplay(){
+  isPlaying=false;
+  if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
+  lastTs=0;
+}
+function scheduleResume(){
+  if(reduceMotion) return;
+  clearTimeout(resumeTimer);
+  resumeTimer=setTimeout(()=>{ if(!userTouching) startAutoplay(); }, RESUME_DELAY);
+}
+
 track.addEventListener("scroll", ()=>{
   updateCarousel();
-  clearTimeout(snapTimer);
-  snapTimer=setTimeout(snapToNearest,150);
+  if(isPlaying) return;                 // 自动播放时连续滚动，不做吸附
+  if(userTouching){
+    clearTimeout(snapTimer);
+  }else{
+    clearTimeout(snapTimer);
+    snapTimer=setTimeout(snapToNearest,150);
+    scheduleResume();
+  }
 },{passive:true});
-window.addEventListener("resize", updateCarousel);
+window.addEventListener("resize", ()=>{ calcSeam(); updateCarousel(); });
+
 cardEls.forEach((card,i)=>{
-  card.addEventListener("click", ()=>{ if(i!==activeIdx) scrollToCard(i); });
+  card.addEventListener("click", ()=>{ if(i%REAL_N!==activeIdx) scrollToCard(i); });
 });
 dots.addEventListener("click", e=>{
   const d = e.target.closest("i");
-  if(d) scrollToCard(Number(d.dataset.i));
+  if(d){ stopAutoplay(); scrollToCard(Number(d.dataset.i)); scheduleResume(); }
 });
+
+/* 用户手势：触摸 / 鼠标拖拽 / 滚轮，均暂停并在松手停稳后续播 */
+track.addEventListener("pointerdown", ()=>{
+  userTouching=true;
+  stopAutoplay();
+  clearTimeout(resumeTimer);
+});
+window.addEventListener("pointerup", ()=>{
+  if(userTouching){ userTouching=false; scheduleResume(); }
+});
+track.addEventListener("pointercancel", ()=>{ userTouching=false; scheduleResume(); });
+track.addEventListener("wheel", ()=>{
+  stopAutoplay(); clearTimeout(resumeTimer); scheduleResume();
+},{passive:true});
+
+/* 切到后台暂停，回到前台续播 */
+document.addEventListener("visibilitychange", ()=>{
+  if(document.hidden) stopAutoplay(); else scheduleResume();
+});
+
+/* 结果弹窗 / 规则等弹层打开时暂停，关闭后续播 */
+function onOverlayClass(){
+  if(overlayOpen()){ stopAutoplay(); clearTimeout(resumeTimer); }
+  else scheduleResume();
+}
+new MutationObserver(onOverlayClass).observe(document.getElementById("resultMask"), {attributes:true, attributeFilter:["class"]});
+new MutationObserver(onOverlayClass).observe(document.getElementById("sheetMask"), {attributes:true, attributeFilter:["class"]});
 
 /* ===== 抽奖 ===== */
 const drawBtn = document.getElementById("drawBtn");
@@ -966,10 +1063,20 @@ for(let i=0;i<16;i++){
 buildDots();
 refreshCount();
 renderTasks();
-function initCarousel(){ track.scrollLeft=0; updateCarousel(); }
+function initCarousel(){ calcSeam(); updateCarousel(); }
+function resetStart(){
+  track.scrollLeft=0; autoX=0; calcSeam(); updateCarousel();
+}
 initCarousel();
-window.addEventListener("load", initCarousel);
-setTimeout(initCarousel, 400);
+setTimeout(resetStart, 300);
+setTimeout(resetStart, 800);
+/* 页面加载完成、卡牌稳定后，再等待 2s 开始自动滚动播放 */
+function kickoff(){
+  resetStart();
+  setTimeout(()=>{ if(!reduceMotion) startAutoplay(); }, START_DELAY);
+}
+if(document.readyState==="complete") kickoff();
+else window.addEventListener("load", kickoff);
 </script>
 </body>
 </html>
