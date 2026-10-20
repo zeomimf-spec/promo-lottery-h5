@@ -55,7 +55,7 @@ button{font-family:inherit;}
 .app-bg::before,.app-bg::after{display:none;}
 .geo-blocks{display:none;}
 .gold-dust{display:none;}
-.content{position:relative;z-index:2;padding-bottom:40px;}
+.content{position:relative;z-index:2;padding-bottom:96px;}
 
 /* ===== 顶部栏 ===== */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 2px;position:relative;z-index:3;}
@@ -76,7 +76,7 @@ button{font-family:inherit;}
 .topbtn svg{width:18px;height:18px;}
 
 /* ===== Hero ===== */
-.hero{padding:calc(env(safe-area-inset-top,0px) + 14px) 20px 22px;text-align:center;position:relative;}
+.hero{padding:calc(env(safe-area-inset-top,0px) + 54px) 20px 22px;text-align:center;position:relative;}
 .date-pill{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;
@@ -200,8 +200,64 @@ button{font-family:inherit;}
 }
 .guarantee svg{width:15px;height:15px;color:var(--brand-red);flex:0 0 auto;}
 
-/* ===== 任务中心 ===== */
-.tasks{padding:14px 20px 2px;position:relative;z-index:2;}
+/* ===== 头部胶囊入口 ===== */
+.top-caps{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;z-index:30;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:calc(env(safe-area-inset-top,0px) + 9px) 12px 0;
+  pointer-events:none;
+}
+.top-caps .tcap{pointer-events:auto;}
+.tcap{
+  display:inline-flex;align-items:center;gap:4px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.6);
+  background:rgba(255,255,255,.94);color:var(--brand-red-deep);
+  border-radius:999px;padding:6px 11px;font-size:11px;font-weight:700;line-height:1;
+  box-shadow:0 4px 12px rgba(170,20,40,.18);
+  transition:transform .12s;white-space:nowrap;
+}
+.tcap svg{width:13px;height:13px;flex:0 0 auto;}
+.tcap:active{transform:scale(.94);}
+.tcap-group{display:flex;gap:7px;}
+
+/* ===== 任务：上拉抽屉 ===== */
+.task-mask{
+  position:fixed;inset:0;z-index:40;background:rgba(15,18,30,.52);
+  backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .32s;
+}
+.task-mask.show{opacity:1;pointer-events:auto;}
+.task-drawer{
+  position:fixed;left:50%;bottom:0;width:100%;max-width:480px;z-index:45;
+  height:auto;max-height:80vh;
+  display:flex;flex-direction:column;
+  background:#fff;border-radius:24px 24px 0 0;
+  box-shadow:0 -12px 44px rgba(15,18,30,.22);
+  transform:translate(-50%,calc(100% - 70px));
+  transition:transform .38s cubic-bezier(.32,.72,.2,1);
+  will-change:transform;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 4px);
+}
+.task-drawer.show{transform:translate(-50%,0);}
+.task-drawer.dragging{transition:none;}
+.td-handle{flex:0 0 auto;cursor:grab;touch-action:none;padding:9px 16px 6px;}
+.td-handle:active{cursor:grabbing;}
+.td-grip{width:40px;height:4px;border-radius:3px;background:#DDDFE6;margin:0 auto 9px;}
+.td-peek{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.td-left{display:flex;align-items:center;gap:11px;min-width:0;}
+.td-ico{
+  width:40px;height:40px;flex:0 0 40px;border-radius:12px;
+  background:var(--brand-grad);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 14px rgba(245,52,75,.28);
+}
+.td-ico svg{width:21px;height:21px;}
+.td-title{font-size:16px;font-weight:800;color:var(--ink-1);letter-spacing:.3px;}
+.td-hint{font-size:11px;color:var(--ink-4);margin-top:1px;}
+.td-cta{display:flex;align-items:center;gap:2px;flex:0 0 auto;color:var(--brand-red);font-size:12px;font-weight:700;}
+.td-chev{width:18px;height:18px;transition:transform .32s;}
+.task-drawer.show .td-chev{transform:rotate(180deg);}
+.td-body{flex:1;min-height:0;overflow-y:auto;padding:8px 16px 18px;}
 .task{
   display:flex;align-items:center;gap:12px;margin-bottom:11px;
   border-radius:18px;padding:14px;
@@ -224,18 +280,6 @@ button{font-family:inherit;}
 }
 .task .tbtn:active{transform:scale(.95);}
 .task .tbtn.done{background:#F1F2F5;color:var(--ink-4);box-shadow:none;}
-
-/* ===== 底部入口 ===== */
-.foot-links{display:flex;gap:10px;padding:16px 20px 2px;}
-.foot-chip{
-  flex:1;cursor:pointer;border-radius:16px;padding:13px 4px;
-  background:#fff;border:1px solid var(--line);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  color:var(--ink-2);font-size:12px;font-weight:600;
-  box-shadow:var(--shadow-card);transition:transform .12s;
-}
-.foot-chip svg{width:20px;height:20px;color:var(--brand-red);}
-.foot-chip:active{transform:scale(.97);}
 
 /* ===== 底部弹层 ===== */
 .sheet-mask{
@@ -388,6 +432,24 @@ button{font-family:inherit;}
   </div>
   <div class="gold-dust"></div>
 
+  <!-- 头部胶囊入口 -->
+  <div class="top-caps">
+    <button class="tcap" id="linkRules" aria-label="活动规则">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      活动规则
+    </button>
+    <div class="tcap-group">
+      <button class="tcap" id="linkInvite" aria-label="邀请记录">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 10v6M19 13h6"/></svg>
+        邀请记录
+      </button>
+      <button class="tcap" id="linkPrizes" aria-label="奖品记录">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a1.8 1.8 0 0 1 0 3.6H9"/></svg>
+        奖品记录
+      </button>
+    </div>
+  </div>
+
   <div class="content" id="view-home">
     <!-- Hero -->
     <header class="hero">
@@ -520,60 +582,60 @@ button{font-family:inherit;}
         参与即保底 · 得指定爆品买一送一
       </div>
     </section>
+  </div>
+</div>
 
-    <!-- 任务中心 -->
-    <section class="tasks">
-      <div class="sec-head" style="padding-left:0;">
-        <span class="sq"></span>
-        <span class="st">做任务 · 赚次数</span>
+<!-- 任务：上拉抽屉 -->
+<div class="task-mask" id="taskMask"></div>
+<div class="task-drawer" id="taskDrawer" role="dialog" aria-label="任务中心">
+  <div class="td-handle" id="taskHandle">
+    <div class="td-grip"></div>
+    <div class="td-peek">
+      <div class="td-left">
+        <span class="td-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </span>
+        <div class="td-txt">
+          <div class="td-title">做任务 · 赚次数</div>
+          <div class="td-hint">完成任务得抽奖次数</div>
+        </div>
       </div>
-      <div class="task">
-        <div class="ticon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="tinfo">
-          <div class="tname">邀请好友</div>
-          <div class="tdesc">每邀请1位好友 +1次，邀满3人额外 +1次</div>
-        </div>
-        <button class="tbtn" id="taskInvite">去邀请</button>
+      <span class="td-cta"><span id="tdCtaText">上拉展开</span>
+        <svg class="td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+      </span>
+    </div>
+  </div>
+  <div class="td-body">
+    <div class="task">
+      <div class="ticon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <div class="task">
-        <div class="ticon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="tinfo">
-          <div class="tname">门店打卡</div>
-          <div class="tdesc">到任意门店完成打卡，得 1 次</div>
-        </div>
-        <button class="tbtn" id="taskCheckin">去打卡</button>
+      <div class="tinfo">
+        <div class="tname">邀请好友</div>
+        <div class="tdesc">每邀请1位好友 +1次，邀满3人额外 +1次</div>
       </div>
-      <div class="task">
-        <div class="ticon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
-        </div>
-        <div class="tinfo">
-          <div class="tname">添加企业福利官</div>
-          <div class="tdesc">添加企业微信福利官，得 1 次</div>
-        </div>
-        <button class="tbtn" id="taskWelfare">去添加</button>
+      <button class="tbtn" id="taskInvite">去邀请</button>
+    </div>
+    <div class="task">
+      <div class="ticon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
-    </section>
-
-    <!-- 底部入口 -->
-    <nav class="foot-links">
-      <button class="foot-chip" id="linkRules">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        活动规则
-      </button>
-      <button class="foot-chip" id="linkInvite">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 10v6M19 13h6"/></svg>
-        邀请记录
-      </button>
-      <button class="foot-chip" id="linkPrizes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a1.8 1.8 0 0 1 0 3.6H9"/></svg>
-        奖品记录
-      </button>
-    </nav>
+      <div class="tinfo">
+        <div class="tname">门店打卡</div>
+        <div class="tdesc">到任意门店完成打卡，得 1 次</div>
+      </div>
+      <button class="tbtn" id="taskCheckin">去打卡</button>
+    </div>
+    <div class="task">
+      <div class="ticon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
+      </div>
+      <div class="tinfo">
+        <div class="tname">添加企业福利官</div>
+        <div class="tdesc">添加企业微信福利官，得 1 次</div>
+      </div>
+      <button class="tbtn" id="taskWelfare">去添加</button>
+    </div>
   </div>
 </div>
 
@@ -750,7 +812,8 @@ let userTouching=false, resumeTimer=null;
 
 function overlayOpen(){
   return document.getElementById("resultMask").classList.contains("show")
-      || document.getElementById("sheetMask").classList.contains("show");
+      || document.getElementById("sheetMask").classList.contains("show")
+      || document.getElementById("taskMask").classList.contains("show");
 }
 function frame(ts){
   if(!isPlaying) return;
@@ -831,6 +894,7 @@ function onOverlayClass(){
 }
 new MutationObserver(onOverlayClass).observe(document.getElementById("resultMask"), {attributes:true, attributeFilter:["class"]});
 new MutationObserver(onOverlayClass).observe(document.getElementById("sheetMask"), {attributes:true, attributeFilter:["class"]});
+new MutationObserver(onOverlayClass).observe(document.getElementById("taskMask"), {attributes:true, attributeFilter:["class"]});
 
 /* ===== 抽奖 ===== */
 const drawBtn = document.getElementById("drawBtn");
@@ -932,6 +996,56 @@ function completeTask(key){
   const tips = {checkin:"打卡成功，+1 次抽奖机会", welfare:"添加成功，+1 次抽奖机会"};
   toast(tips[key]);
 }
+
+/* ===== 任务：上拉抽屉（拖拽 / 点击） ===== */
+const taskDrawer = document.getElementById("taskDrawer");
+const taskMask = document.getElementById("taskMask");
+const taskHandle = document.getElementById("taskHandle");
+const tdCtaText = document.getElementById("tdCtaText");
+const PEEK_VISIBLE = 70;    // 折叠态露出高度，需与 CSS calc(100% - 70px) 一致（=抓手条高度）
+function setDrawer(open){
+  taskDrawer.classList.toggle("show", open);
+  taskMask.classList.toggle("show", open);
+  tdCtaText.textContent = open ? "点击收起" : "上拉展开";
+}
+function openTaskDrawer(){ setDrawer(true); }
+function closeTaskDrawer(){ setDrawer(false); }
+taskMask.addEventListener("click", closeTaskDrawer);
+const ddrag = {active:false, startY:0, startOpen:false, dy:0, moved:false};
+function drawerSpan(){ return Math.max(0, taskDrawer.offsetHeight - PEEK_VISIBLE); }
+taskHandle.addEventListener("pointerdown", e=>{
+  ddrag.active=true; ddrag.startY=e.clientY;
+  ddrag.startOpen=taskDrawer.classList.contains("show");
+  ddrag.dy=0; ddrag.moved=false;
+  taskDrawer.classList.add("dragging");
+  try{ taskHandle.setPointerCapture(e.pointerId); }catch(_){}
+});
+taskHandle.addEventListener("pointermove", e=>{
+  if(!ddrag.active) return;
+  ddrag.dy=e.clientY - ddrag.startY;
+  if(Math.abs(ddrag.dy)>5) ddrag.moved=true;
+  const span=drawerSpan();
+  let y = ddrag.startOpen
+    ? Math.max(0, Math.min(span, ddrag.dy))
+    : Math.max(0, Math.min(span, span + ddrag.dy));
+  taskDrawer.style.transform = `translate(-50%, ${y}px)`;
+});
+function endDrag(){
+  if(!ddrag.active) return;
+  ddrag.active=false;
+  taskDrawer.classList.remove("dragging");
+  taskDrawer.style.transform="";
+  const span=drawerSpan();
+  if(!ddrag.moved){
+    setDrawer(!ddrag.startOpen);
+  }else if(ddrag.startOpen){
+    setDrawer(ddrag.dy < span*0.35);
+  }else{
+    setDrawer(ddrag.dy < -span*0.35);
+  }
+}
+taskHandle.addEventListener("pointerup", endDrag);
+taskHandle.addEventListener("pointercancel", endDrag);
 
 /* ===== 弹层系统 ===== */
 const sheetMask = document.getElementById("sheetMask");
