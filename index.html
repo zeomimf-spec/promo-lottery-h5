@@ -124,12 +124,12 @@ button{font-family:inherit;}
 /* ===== 奖品轮播 ===== */
 .carousel{position:relative;}
 .carousel-track{
-  display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+  display:flex;overflow-x:auto;overflow-y:hidden;
   touch-action:pan-x;padding:14px 18px 16px;scrollbar-width:none;
 }
 .carousel-track::-webkit-scrollbar{display:none;}
 .prize-card{
-  flex:0 0 38%;scroll-snap-align:center;position:relative;
+  flex:0 0 38%;position:relative;
   border-radius:18px;overflow:hidden;
   background:#fff;border:1px solid var(--line);
   box-shadow:0 8px 18px rgba(24,28,44,.08);
@@ -671,10 +671,24 @@ let activeIdx = 0;
 function buildDots(){
   dots.innerHTML = cardEls.map((_,i)=>`<i class="${i===0?'on':''}" data-i="${i}"></i>`).join("");
 }
-function scrollToCard(i){
+function targetX(i){
   const card = cardEls[i];
-  const x = card.offsetLeft + card.offsetWidth/2 - track.clientWidth/2;
-  track.scrollTo({left:x, behavior:"smooth"});
+  return Math.max(0, card.offsetLeft + card.offsetWidth/2 - track.clientWidth/2);
+}
+function scrollToCard(i){
+  track.scrollTo({left:targetX(i), behavior:"smooth"});
+}
+let snapTimer=null;
+function snapToNearest(){
+  const vw = track.clientWidth;
+  const center = track.scrollLeft + vw/2;
+  let best=0, bd=Infinity;
+  cardEls.forEach((c,i)=>{
+    const d=Math.abs(c.offsetLeft + c.offsetWidth/2 - center);
+    if(d<bd){bd=d;best=i;}
+  });
+  const tx=targetX(best);
+  if(Math.abs(track.scrollLeft-tx)>3){ scrollToCard(best); }
 }
 function updateCarousel(){
   const vw = track.clientWidth;
@@ -707,7 +721,11 @@ function updateCarousel(){
     [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===activeIdx));
   }
 }
-track.addEventListener("scroll", updateCarousel, {passive:true});
+track.addEventListener("scroll", ()=>{
+  updateCarousel();
+  clearTimeout(snapTimer);
+  snapTimer=setTimeout(snapToNearest,150);
+},{passive:true});
 window.addEventListener("resize", updateCarousel);
 cardEls.forEach((card,i)=>{
   card.addEventListener("click", ()=>{ if(i!==activeIdx) scrollToCard(i); });
@@ -947,7 +965,10 @@ for(let i=0;i<16;i++){
 buildDots();
 refreshCount();
 renderTasks();
-updateCarousel();
+function initCarousel(){ track.scrollLeft=0; updateCarousel(); }
+initCarousel();
+window.addEventListener("load", initCarousel);
+setTimeout(initCarousel, 400);
 </script>
 </body>
 </html>
