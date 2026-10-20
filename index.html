@@ -701,10 +701,6 @@ button{font-family:inherit;}
       </div>
     </div>
     <div class="r-hint">点击任一件奖品即可领取，另一件自动作废</div>
-    <div class="r-btns">
-      <button class="r-keep" id="resultKeep">暂不选择</button>
-      <button class="r-go" id="resultGo">查看奖品记录</button>
-    </div>
   </div>
 </div>
 
@@ -871,13 +867,6 @@ function bindOpt(el, key){
 }
 bindOpt(document.getElementById("optA"), "a");
 bindOpt(document.getElementById("optB"), "b");
-document.getElementById("resultKeep").addEventListener("click", ()=>{
-  document.getElementById("resultMask").classList.remove("show");
-});
-document.getElementById("resultGo").addEventListener("click", ()=>{
-  document.getElementById("resultMask").classList.remove("show");
-  openSheet("奖品获得记录", renderPrizeRecords());
-});
 
 /* ===== 任务 ===== */
 function renderTasks(){
