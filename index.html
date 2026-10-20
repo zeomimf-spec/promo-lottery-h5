@@ -124,19 +124,21 @@ button{font-family:inherit;}
 /* ===== 奖品轮播 ===== */
 .carousel{position:relative;}
 .carousel-track{
-  display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;
-  padding:14px 16px 14px;scrollbar-width:none;
+  display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+  touch-action:pan-x;padding:14px 18px 16px;scrollbar-width:none;
 }
 .carousel-track::-webkit-scrollbar{display:none;}
 .prize-card{
-  flex:0 0 39%;scroll-snap-align:center;position:relative;
+  flex:0 0 38%;scroll-snap-align:center;position:relative;
   border-radius:18px;overflow:hidden;
   background:#fff;border:1px solid var(--line);
-  box-shadow:var(--shadow-card);
+  box-shadow:0 8px 18px rgba(24,28,44,.08);
+  margin-right:-34px;
   transition:transform .25s ease,opacity .25s ease;
-  transform-origin:50% 120%;
+  transform-origin:50% 110%;
   cursor:pointer;
 }
+.prize-card:last-child{margin-right:18px;}
 .prize-card.gold{
   background:linear-gradient(170deg,#FFF8E4 0%,#FCE9BE 55%,#F6D78C 100%);
   border-color:#F2D598;
@@ -694,21 +696,18 @@ function updateCarousel(){
   });
   if(atStart) best = 0;
   const activeCard = cardEls[best];
-  const activeCenter = activeCard.offsetLeft + activeCard.offsetWidth/2;
-  const cardW = activeCard.offsetWidth + 10;
+  const ax = activeCard.offsetLeft;
+  const stride = cardEls.length > 1 ? Math.abs(cardEls[1].offsetLeft - cardEls[0].offsetLeft) : 1;
   cardEls.forEach((card,i)=>{
-    const cc = card.offsetLeft + card.offsetWidth/2;
-    let step = (cc - activeCenter)/cardW;
+    let step = (card.offsetLeft - ax)/stride;
     if(atStart && i===0) step = 0;
     const a = Math.min(3, Math.abs(step));
-    const scale = Math.max(0.86, 1 - a*0.06);
-    const rz = Math.max(-18, Math.min(18, step * 13));
-    const ry = Math.max(-14, Math.min(14, step * -12));
-    const y = Math.min(30, a*15);
-    const op = Math.max(0.55, 1 - a*0.16);
-    card.style.transform = `perspective(1000px) translateY(${y}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${scale})`;
+    const scale = Math.max(0.9, 1 - a*0.05);
+    const rz = Math.max(-16, Math.min(16, step * 7));
+    const op = Math.max(0.7, 1 - a*0.12);
+    card.style.transform = `perspective(1100px) rotateZ(${rz}deg) scale(${scale})`;
     card.style.opacity = op;
-    card.style.zIndex = 100 - Math.round(a*20);
+    card.style.zIndex = 100 - Math.round(step*20);
   });
   if(best !== activeIdx){
     activeIdx = best;
