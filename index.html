@@ -862,6 +862,7 @@ function rulesHtml(){
     </div>`).join("")}</div>`;
 }
 function renderInviteRecords(){
+  if(!inviteRecords.length) return `<div class="empty">还没有邀请记录，快去邀请好友吧</div>`;
   return `<div class="rec-list">${inviteRecords.map(r=>`
     <div class="rec">
       <div class="ri">
