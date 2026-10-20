@@ -41,7 +41,7 @@ button{font-family:inherit;}
 .app{width:100%;max-width:100%;margin:0 auto;position:relative;min-height:100vh;background:var(--bg-page);overflow-x:hidden;}
 @media(min-width:520px){
   body{background:#E9EBF0;}
-  .topbar,.content{max-width:480px;margin-left:auto;margin-right:auto;}
+  .content{max-width:480px;margin-left:auto;margin-right:auto;}
 }
 
 /* ===== 背景层 ===== */
@@ -76,7 +76,7 @@ button{font-family:inherit;}
 .topbtn svg{width:18px;height:18px;}
 
 /* ===== Hero ===== */
-.hero{padding:6px 20px 22px;text-align:center;position:relative;}
+.hero{padding:calc(env(safe-area-inset-top,0px) + 14px) 20px 22px;text-align:center;position:relative;}
 .date-pill{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;
@@ -380,17 +380,6 @@ button{font-family:inherit;}
     <i style="width:120px;height:120px;left:-44px;top:620px"></i>
   </div>
   <div class="gold-dust"></div>
-
-  <div class="topbar">
-    <div class="brand">
-      <span class="logo">奖</span>
-      <span class="bt">大促抽奖</span>
-      <span class="bs">LUCKY DRAW</span>
-    </div>
-    <button class="topbtn" id="topRules" aria-label="查看活动规则">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    </button>
-  </div>
 
   <div class="content" id="view-home">
     <!-- Hero -->
@@ -886,7 +875,6 @@ function shareCardHtml(){
 document.getElementById("linkRules").addEventListener("click", ()=>openSheet("活动规则", rulesHtml()));
 document.getElementById("linkInvite").addEventListener("click", ()=>openSheet("邀请记录", renderInviteRecords()));
 document.getElementById("linkPrizes").addEventListener("click", ()=>openSheet("奖品获得记录", renderPrizeRecords()));
-document.getElementById("topRules").addEventListener("click", ()=>openSheet("活动规则", rulesHtml()));
 
 /* 弹层内动态按钮（事件委托） */
 sheetBody.addEventListener("click", e=>{
