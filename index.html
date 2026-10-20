@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>抽iPhone 赢百万免单 · 大促抽奖</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='16' fill='%23F0BD3F'/%3E%3Ctext x='32' y='43' font-size='28' text-anchor='middle' fill='%237C4D10' font-family='sans-serif' font-weight='bold'%3E%E5%A5%96%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Karla:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  /* 酒红 */
+  --wine-950:#240409;
+  --wine-900:#35070d;
+  --wine-800:#4a0b13;
+  --wine-700:#630e18;
+  --red-600:#a51622;
+  --red-500:#d3202b;
+  --red-400:#e83a45;
+  --red-300:#f87171;
+  /* 金 */
+  --gold-100:#fef7e0;
+  --gold-200:#fbe7a8;
+  --gold-300:#f6d87e;
+  --gold-400:#f0bd3f;
+  --gold-500:#dfa72b;
+  --gold-600:#b8851f;
+  --gold-700:#8a5d16;
+  --gold-800:#5e3a10;
+  /* 浅色面 */
+  --cream:#fffdf7;
+  --paper:#fdf1e0;
+  --paper-line:#e7c98f;
+  --ink:#5e3a10;
+  --white:#fff;
+  --block-dark:#2a0509;
+  /* skill 锚定色 */
+  --color-primary:#DC2626;
+  --color-secondary:#F87171;
+  --color-accent:#A16207;
+  --color-background:#FEF2F2;
+  --color-foreground:#450A0A;
+  --color-card:#FFFFFF;
+  --color-border:#FECACA;
+
+  --font-display:"Playfair Display","Noto Serif SC",Georgia,serif;
+  --font-body:"Karla","Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-body);
+  background:var(--wine-950);
+  color:#fff;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;}
+/* ===== 桌面端手机外框 ===== */
+@media(min-width:520px){
+  body{
+    background:radial-gradient(120% 120% at 50% 0%,#3a0810 0%,#1a0307 70%);
+    display:flex;align-items:flex-start;justify-content:center;min-height:100vh;
+    padding:36px 0;
+  }
+  .app{
+    width:430px;min-height:auto;border-radius:36px;overflow:hidden;
+    box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 0 9px #260409,0 0 0 11px #630e18;
+  }
+}
+.app{max-width:430px;margin:0 auto;position:relative;min-height:100vh;background:var(--wine-900);overflow:hidden;}
+
+/* ===== 背景层 ===== */
+.app-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(115% 42% at 50% -8%, rgba(240,189,63,.32), transparent 60%),
+    radial-gradient(75% 34% at 90% 16%, rgba(255,255,255,.08), transparent 55%),
+    radial-gradient(62% 40% at 6% 60%, rgba(240,189,63,.10), transparent 60%),
+    linear-gradient(180deg,#4a0b13 0%,#5e0f1a 26%,#460a12 62%,#28050a 100%);
+}
+.app-bg::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(115deg,transparent 0 54px,rgba(253,236,184,.05) 54px 55px,transparent 55px 68px);
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 82%);
+  mask-image:linear-gradient(180deg,#000,transparent 82%);
+}
+.app-bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(125% 100% at 50% 38%,transparent 52%,rgba(18,1,4,.6) 100%);
+}
+.geo-blocks{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.geo-blocks i{position:absolute;border:1.5px solid rgba(240,189,63,.13);border-radius:22px;}
+
+/* 漂浮金粒 */
+.gold-dust{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.gold-dust i{
+  position:absolute;bottom:-20px;border-radius:2px;
+  background:linear-gradient(135deg,#fbe7a8,#b8851f);
+  opacity:0;animation:rise linear infinite;
+}
+@keyframes rise{
+  0%{transform:translateY(0) rotate(0);opacity:0;}
+  12%{opacity:.85;}
+  100%{transform:translateY(-108vh) rotate(360deg);opacity:0;}
+}
+.content{position:relative;z-index:2;padding-bottom:34px;}
+
+/* ===== 顶部栏 ===== */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 4px;position:relative;z-index:3;}
+.brand{display:flex;align-items:center;gap:9px;}
+.brand .logo{
+  width:31px;height:31px;border-radius:10px;
+  background:conic-gradient(from 200deg,#8a5d16,#f0bd3f,#fef7e0,#f0bd3f,#8a5d16);
+  border:1.5px solid #8a5d16;display:flex;align-items:center;justify-content:center;
+  color:#7c4d10;font-weight:900;font-size:16px;box-shadow:0 2px 0 #5e3a10;
+}
+.brand .bt{font-weight:900;font-size:15px;color:#fff;letter-spacing:1px;}
+.brand .bs{font-size:9px;font-family:"Playfair Display";letter-spacing:2px;color:rgba(255,238,194,.6);border-left:1px solid rgba(255,238,194,.3);padding-left:8px;}
+.topbtn{
+  width:33px;height:33px;border-radius:10px;cursor:pointer;
+  border:1.5px solid rgba(240,189,63,.4);background:rgba(255,255,255,.08);
+  color:#ffeec2;display:flex;align-items:center;justify-content:center;
+}
+.topbtn svg{width:18px;height:18px;}
+
+/* ===== Hero ===== */
+.hero{padding:8px 20px 16px;text-align:center;position:relative;}
+.date-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(180deg,rgba(240,189,63,.22),rgba(240,189,63,.07));
+  border:1.5px solid rgba(240,189,63,.55);border-radius:999px;
+  padding:6px 16px;font-size:12px;font-weight:700;color:#ffeec2;letter-spacing:.5px;
+}
+.date-pill .dot{width:7px;height:7px;border-radius:50%;background:#f0bd3f;animation:pulse 1.8s infinite;}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(240,189,63,.6);}
+  70%{box-shadow:0 0 0 9px rgba(240,189,63,0);}
+  100%{box-shadow:0 0 0 0 rgba(240,189,63,0);}
+}
+.date-pill .sep{color:rgba(255,238,194,.5);}
+.hero-title{
+  margin:17px auto 0;font-family:var(--font-display);font-weight:900;
+  font-size:46px;line-height:1.16;letter-spacing:1px;
+}
+.hero-title .l{display:block;color:#fff;text-shadow:0 4px 14px rgba(0,0,0,.45);}
+.hero-title .latin{font-family:"Playfair Display",serif;font-style:italic;}
+.foil{
+  background:linear-gradient(100deg,#b8851f 0%,#f6d87e 22%,#fef7e0 40%,#f0bd3f 56%,#b8851f 78%,#f0bd3f 100%);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:foilshine 4.5s linear infinite;
+}
+@keyframes foilshine{0%{background-position:0% 0;}100%{background-position:200% 0;}}
+.hero-sub{
+  display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+  background:rgba(20,3,6,.45);border:1.5px solid rgba(240,189,63,.5);
+  border-radius:999px;padding:8px 18px;font-size:13.5px;font-weight:700;color:#ffeec2;
+}
+.hero-sub svg{width:16px;height:16px;color:#f0bd3f;flex:0 0 auto;}
+.hero-note{margin-top:11px;font-size:11px;color:rgba(255,238,194,.7);letter-spacing:.5px;}
+.hero-note b{color:#f6d87e;}
+
+/* ===== 区块标题 ===== */
+.section{position:relative;z-index:2;}
+.sec-head{display:flex;align-items:center;gap:10px;padding:6px 20px 4px;}
+.sec-head .sq{width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#f6d87e,#b8851f);box-shadow:0 2px 0 #5e3a10;}
+.sec-head .st{font-family:var(--font-display);font-weight:900;font-size:19px;color:#fff;letter-spacing:.5px;}
+.sec-head .sr{font-size:11px;color:rgba(255,238,194,.65);}
+.sec-head .swipe{margin-left:auto;display:inline-flex;align-items:center;gap:3px;font-size:11px;color:rgba(255,238,194,.7);}
+.sec-head .swipe svg{width:16px;height:16px;}
+
+/* ===== 奖品轮播（Coverflow） ===== */
+.carousel{position:relative;}
+.carousel-track{
+  display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:16px 20px 20px;scrollbar-width:none;
+}
+.carousel-track::-webkit-scrollbar{display:none;}
+.prize-card{
+  flex:0 0 64%;scroll-snap-align:center;position:relative;
+  border-radius:20px;overflow:hidden;
+  border:2px solid rgba(253,236,184,.5);
+  box-shadow:0 18px 38px rgba(15,1,4,.55);
+  transition:transform .25s ease,opacity .25s ease;
+  backface-visibility:hidden;cursor:pointer;
+}
+.prize-card.gold{
+  background:linear-gradient(115deg,#7c5413 0%,#c8961f 12%,#f6d87e 28%,#fef4d6 42%,#f0bd3f 58%,#c8961f 78%,#8a5d16 100%);
+  border-color:#fbe7a8;
+}
+.prize-card.red{
+  background:linear-gradient(180deg,#a51622 0%,#d3202b 30%,#b31620 72%,#8a1018 100%);
+}
+.prize-card.red::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(115deg,transparent 0 40px,rgba(255,255,255,.05) 40px 41px);
+}
+.prize-card.gold::after{
+  content:"";position:absolute;top:0;bottom:0;width:46%;left:-60%;z-index:3;
+  background:linear-gradient(105deg,transparent 5%,rgba(255,255,255,.55) 50%,transparent 95%);
+  transform:skewX(-18deg);animation:sheen 4s ease-in-out infinite;
+}
+@keyframes sheen{0%,10%{left:-60%;}60%,100%{left:135%;}}
+.card-img{
+  position:relative;z-index:2;margin:11px 11px 0;height:188px;
+  border-radius:14px;overflow:hidden;background:#fff;border:1.5px solid rgba(255,255,255,.85);
+}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.card-info{position:relative;z-index:2;padding:13px 12px 15px;text-align:center;}
+.card-info .tag{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:linear-gradient(180deg,#fbe7a8,#dfa72b);color:#7c4d10;
+  border:1.5px solid #8a5d16;font-size:11px;font-weight:800;
+  padding:2px 11px;border-radius:999px;box-shadow:0 3px 0 rgba(138,93,22,.5);
+}
+.card-info .name{font-size:16px;font-weight:800;color:#fff;margin-top:6px;letter-spacing:.5px;}
+.card-info .name.gold-name{color:#5e3a10;}
+.card-info .desc{font-size:11.5px;color:rgba(255,238,194,.9);margin-top:3px;}
+.prize-card.gold .card-info .desc{color:#6b4410;}
+.dots{display:flex;justify-content:center;gap:7px;padding:2px 0 2px;}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(253,236,184,.35);transition:.25s;cursor:pointer;}
+.dots i.on{width:20px;border-radius:4px;background:linear-gradient(90deg,#f0bd3f,#dfa72b);}
+
+/* ===== 抽奖按钮 ===== */
+.draw-zone{position:relative;z-index:2;padding:12px 20px 6px;display:flex;flex-direction:column;align-items:center;}
+.draw-wrap{position:relative;width:232px;height:232px;display:flex;align-items:center;justify-content:center;}
+.draw-ring{
+  position:absolute;width:224px;height:224px;border-radius:50%;
+  border:2px dashed rgba(240,189,63,.5);animation:spin 24s linear infinite;
+}
+.draw-ring2{
+  position:absolute;width:204px;height:204px;border-radius:50%;
+  border:1.5px dotted rgba(240,189,63,.32);animation:spin 16s linear infinite reverse;
+}
+.draw-wrap.is-off .draw-ring,.draw-wrap.is-off .draw-ring2{animation-play-state:paused;opacity:.35;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.draw-btn{
+  position:relative;width:190px;height:190px;border-radius:50%;cursor:pointer;
+  background:conic-gradient(from 200deg,#8a5d16,#f0bd3f,#fef7e0,#f6d87e,#dfa72b,#8a5d16,#f0bd3f,#8a5d16);
+  padding:8px;border:2px solid #5e3a10;
+  box-shadow:0 9px 0 #4a2f0d,0 20px 44px rgba(0,0,0,.55);
+  transition:transform .12s,box-shadow .12s,filter .2s;
+}
+.draw-btn:active{transform:translateY(6px);box-shadow:0 3px 0 #4a2f0d,0 10px 24px rgba(0,0,0,.5);}
+.draw-btn::before{
+  content:"";position:absolute;inset:13px;border-radius:50%;
+  background:radial-gradient(circle at 50% 32%,#e83a45,#b31620 55%,#7a1018 100%);
+  border:2px solid rgba(240,189,63,.7);
+  box-shadow:inset 0 6px 14px rgba(0,0,0,.42),inset 0 -4px 10px rgba(255,255,255,.18);
+}
+.draw-btn .inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.draw-btn .big{font-family:var(--font-display);font-weight:900;font-size:33px;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.4);letter-spacing:1px;}
+.draw-btn .cnt{font-size:12.5px;color:#ffeec2;font-weight:500;}
+.draw-btn .cnt b{color:#fff;font-size:16px;font-family:"Playfair Display";margin:0 2px;}
+.draw-btn.disabled{filter:grayscale(.75) brightness(.8);cursor:not-allowed;}
+.guarantee{
+  display:inline-flex;align-items:center;gap:7px;margin-top:18px;
+  background:rgba(20,3,6,.35);border:1px solid rgba(240,189,63,.28);
+  border-radius:999px;padding:8px 17px;font-size:12px;color:rgba(255,238,194,.85);
+}
+.guarantee svg{width:15px;height:15px;color:#f0bd3f;flex:0 0 auto;}
+
+/* ===== 任务中心 ===== */
+.tasks{padding:16px 20px 2px;position:relative;z-index:2;}
+.task{
+  display:flex;align-items:center;gap:12px;margin-bottom:11px;
+  border-radius:16px;padding:13px 14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+  border:1.5px solid rgba(240,189,63,.32);box-shadow:0 8px 20px rgba(0,0,0,.18);
+}
+.task .ticon{
+  width:44px;height:44px;flex:0 0 44px;border-radius:12px;
+  background:linear-gradient(180deg,#f6d87e,#dfa72b);border:1.5px solid #8a5d16;
+  color:#7c4d10;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 #8a5d16;
+}
+.task .ticon svg{width:23px;height:23px;}
+.task .tinfo{flex:1;min-width:0;}
+.task .tname{font-size:15px;font-weight:800;color:#fff;}
+.task .tdesc{font-size:11.5px;color:rgba(255,238,194,.8);margin-top:2px;line-height:1.5;}
+.task .tbtn{
+  flex:0 0 auto;cursor:pointer;border:1.5px solid #8a5d16;border-radius:11px;
+  padding:9px 15px;font-size:13px;font-weight:800;color:#6b4410;
+  background:linear-gradient(180deg,#fbe7a8,#f0bd3f);box-shadow:0 4px 0 #8a5d16;
+  transition:transform .1s,box-shadow .1s;
+}
+.task .tbtn:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5d16;}
+.task .tbtn.done{background:rgba(255,255,255,.14);color:rgba(255,238,194,.85);border-color:rgba(255,238,194,.3);box-shadow:none;}
+
+/* ===== 底部入口 ===== */
+.foot-links{display:flex;gap:10px;padding:14px 20px 2px;}
+.foot-chip{
+  flex:1;cursor:pointer;border-radius:14px;padding:11px 4px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+  border:1.5px solid rgba(240,189,63,.3);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  color:#ffeec2;font-size:12px;font-weight:700;
+  transition:transform .12s,border-color .12s;
+}
+.foot-chip svg{width:19px;height:19px;color:#f0bd3f;}
+.foot-chip:active{transform:translateY(2px);border-color:rgba(240,189,63,.6);}
+
+/* ===== 底部弹层 ===== */
+.sheet-mask{
+  position:fixed;inset:0;background:rgba(25,3,7,.6);z-index:40;
+  opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px);
+}
+.sheet-mask.show{opacity:1;pointer-events:auto;}
+.sheet{
+  position:fixed;left:50%;bottom:0;width:100%;max-width:430px;z-index:50;
+  transform:translateX(-50%) translateY(105%);
+  background:linear-gradient(180deg,#fffdf7,#fdf1e0);
+  border-radius:26px 26px 0 0;border-top:3px solid #f0bd3f;
+  max-height:82vh;display:flex;flex-direction:column;
+  visibility:hidden;transition:transform .38s cubic-bezier(.3,.72,.2,1);
+  color:#5e3a10;box-shadow:0 -10px 40px rgba(0,0,0,.4);
+}
+.sheet.show{transform:translateX(-50%) translateY(0);visibility:visible;}
+.sheet .grip{width:42px;height:5px;border-radius:3px;background:rgba(184,133,31,.35);margin:10px auto 2px;}
+.sheet .shead{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 8px;}
+.sheet .stitle{font-family:var(--font-display);font-weight:900;font-size:19px;color:#b31620;}
+.sheet .sclose{
+  width:32px;height:32px;border-radius:9px;border:1.5px solid #e7c98f;
+  background:rgba(240,189,63,.18);color:#b31620;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.sheet .sbody{padding:4px 20px 28px;overflow-y:auto;}
+
+/* 规则 */
+.rule-item{padding:13px 0;border-bottom:1.5px dashed #e7c98f;}
+.rule-item:last-child{border-bottom:none;}
+.rule-item .rt{display:flex;gap:10px;align-items:center;font-weight:900;font-size:14px;color:#b31620;}
+.rule-item .num{
+  width:24px;height:24px;flex:0 0 24px;border-radius:8px;
+  background:linear-gradient(180deg,#fbe7a8,#dfa72b);border:1.5px solid #8a5d16;
+  color:#7c4d10;font-family:"Playfair Display";font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #8a5d16;
+}
+.rule-item .rd{font-size:13px;color:#7a5143;margin-top:7px;margin-left:34px;line-height:1.7;}
+.rule-item .rd b{color:#b31620;}
+
+/* 记录列表 */
+.rec-list .rec{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1.5px dashed #e7c98f;}
+.rec-list .rec:last-child{border-bottom:none;}
+.rec .rav{width:46px;height:46px;flex:0 0 46px;border-radius:12px;overflow:hidden;background:#fff;border:1.5px solid #ecd9a8;}
+.rec .rav img{width:100%;height:100%;object-fit:cover;}
+.rec .ri{flex:1;min-width:0;}
+.rec .rin{font-weight:900;font-size:14px;color:#5e3a10;}
+.rec .rdesc{font-size:12px;color:#9a6a52;margin-top:2px;}
+.rec .rtime{font-size:11px;color:#b9947a;margin-top:2px;}
+.rec .rval{
+  flex:0 0 auto;font-size:12px;font-weight:800;color:#7c4d10;
+  background:linear-gradient(180deg,#fbe7a8,#f0bd3f);border:1.5px solid #b8851f;
+  padding:5px 11px;border-radius:999px;
+}
+.rec .rval.gold{color:#fff;background:linear-gradient(180deg,#d3202b,#a51622);border-color:#6e0a13;}
+.empty{padding:42px 0;text-align:center;color:#b9947a;font-size:13px;}
+
+/* 分享 */
+.share-card{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  border-radius:18px;padding:22px 16px 18px;
+  background:linear-gradient(160deg,#d3202b,#a51622);border:2px solid #f0bd3f;
+  box-shadow:0 10px 26px rgba(165,22,34,.35);
+}
+.share-card::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 60% at 50% -10%,rgba(240,189,63,.4),transparent 60%);}
+.share-card .sc-t{position:relative;z-index:2;font-family:var(--font-display);font-weight:900;font-size:21px;}
+.share-card .sc-s{position:relative;z-index:2;margin-top:7px;font-size:13px;color:#ffe3c4;}
+.share-card .sc-prize{display:inline-block;position:relative;z-index:2;margin-top:13px;background:linear-gradient(180deg,#fbe7a8,#f0bd3f);color:#7c4d10;font-weight:800;font-size:12.5px;padding:6px 16px;border-radius:999px;}
+.copy-link{display:flex;gap:8px;background:#fff;border:1.5px solid #ecd9a8;border-radius:13px;padding:6px;align-items:center;margin-top:14px;}
+.copy-link input{flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:12.5px;color:#6b4410;background:transparent;padding:4px 8px;}
+.copy-link button{
+  border:none;cursor:pointer;border:1.5px solid #8a5d16;
+  background:linear-gradient(180deg,#fbe7a8,#f0bd3f);color:#7c4d10;
+  font-weight:800;font-size:13px;padding:8px 16px;border-radius:9px;box-shadow:0 3px 0 #8a5d16;
+}
+.action-btn{
+  display:block;width:100%;cursor:pointer;margin-top:14px;
+  border:2px solid #6e0a13;border-radius:13px;padding:14px;
+  background:linear-gradient(180deg,#d3202b,#a51622);color:#fff;
+  font-size:15px;font-weight:900;box-shadow:0 5px 0 #6e0a13;
+}
+.action-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #6e0a13;}
+
+/* ===== 抽奖结果弹窗 ===== */
+.result-mask{
+  position:fixed;inset:0;z-index:60;overflow-y:auto;
+  background:rgba(30,3,8,.82);backdrop-filter:blur(3px);
+  display:none;align-items:center;justify-content:center;padding:26px 20px;
+}
+.result-mask.show{display:flex;}
+.result-card{
+  position:relative;width:100%;max-width:340px;margin:auto;
+  background:linear-gradient(180deg,#520c14,#35070d 60%,#260509);
+  border:2px solid #f0bd3f;border-radius:24px;padding:22px 18px 18px;
+  text-align:center;color:#fff;
+  box-shadow:0 0 0 6px rgba(240,189,63,.12),0 28px 60px rgba(0,0,0,.6);
+  animation:pop .42s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes pop{0%{transform:scale(.72);opacity:0;}100%{transform:scale(1);opacity:1;}}
+.result-card .confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:22px;}
+.result-card .confetti i{position:absolute;width:8px;height:14px;border-radius:2px;animation:confetti 2.2s ease-in infinite;}
+@keyframes confetti{
+  0%{transform:translateY(-10px) rotate(0);opacity:1;}
+  100%{transform:translateY(330px) rotate(540deg);opacity:0;}
+}
+.result-card .r-title{font-size:13px;font-weight:800;color:#f6d87e;letter-spacing:2px;}
+.result-card .r-prize{font-family:var(--font-display);font-weight:900;font-size:18px;margin-top:7px;color:#ffeec2;}
+.result-card .r-options{display:flex;gap:13px;margin-top:16px;position:relative;}
+.r-opt{
+  flex:1;min-width:0;cursor:pointer;
+  background:linear-gradient(180deg,#fffdf7,#fdeecf);
+  border:2px solid #f0bd3f;border-radius:16px;padding:11px 8px 13px;
+  box-shadow:0 6px 0 #b8851f,0 12px 26px rgba(0,0,0,.4);
+  transition:transform .14s,box-shadow .14s;
+}
+.r-opt:active{transform:translateY(4px);box-shadow:0 2px 0 #b8851f,0 6px 14px rgba(0,0,0,.4);}
+.r-opt-img{width:100px;height:100px;margin:0 auto 8px;border-radius:12px;overflow:hidden;background:#fff;border:1.5px solid #ecd9a8;}
+.r-opt-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-opt-name{font-weight:900;font-size:14px;color:#b31620;line-height:1.3;min-height:2.7em;display:flex;align-items:center;justify-content:center;}
+.r-opt-sub{font-size:11px;color:#9a6a52;margin-top:2px;}
+.r-opt-pick{
+  display:inline-block;margin-top:9px;
+  background:linear-gradient(180deg,#d3202b,#a51622);color:#fff;
+  font-weight:800;font-size:12px;padding:5px 16px;border-radius:999px;box-shadow:0 3px 0 #6e0a13;
+}
+.r-vs{
+  position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  width:38px;height:38px;border-radius:50%;z-index:5;
+  background:conic-gradient(from 200deg,#8a5d16,#f0bd3f,#fef7e0,#f0bd3f,#8a5d16);
+  border:2px solid #5e3a10;color:#7c4d10;font-family:"Playfair Display";font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #4a2f0d;
+}
+.r-hint{font-size:11px;color:rgba(255,238,194,.7);margin-top:14px;}
+.r-btns{display:flex;gap:10px;margin-top:14px;}
+.r-btns button{flex:1;cursor:pointer;border-radius:11px;padding:11px;font-size:13.5px;font-weight:800;}
+.r-btns .r-keep{background:transparent;color:#f6d87e;border:1.5px solid rgba(240,189,63,.5);}
+.r-btns .r-go{
+  background:linear-gradient(180deg,#fbe7a8,#f0bd3f);color:#7c4d10;
+  border:1.5px solid #8a5d16;box-shadow:0 4px 0 #8a5d16;
+}
+.r-btns .r-go:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5d16;}
+
+/* ===== Toast ===== */
+.toast{
+  position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);z-index:80;
+  background:rgba(30,3,8,.94);color:#fff;border:1.5px solid rgba(240,189,63,.4);
+  padding:12px 22px;border-radius:12px;font-size:14px;
+  opacity:0;pointer-events:none;transition:opacity .28s;max-width:82%;text-align:center;
+}
+.toast.show{opacity:1;}
+
+:focus-visible{outline:2px solid #f0bd3f;outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-bg"></div>
+  <div class="geo-blocks">
+    <i style="width:180px;height:180px;right:-64px;top:118px"></i>
+    <i style="width:120px;height:120px;left:-44px;top:620px"></i>
+  </div>
+  <div class="gold-dust"></div>
+
+  <div class="topbar">
+    <div class="brand">
+      <span class="logo">奖</span>
+      <span class="bt">大促抽奖</span>
+      <span class="bs">LUCKY DRAW</span>
+    </div>
+    <button class="topbtn" id="topRules" aria-label="查看活动规则">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    </button>
+  </div>
+
+  <div class="content" id="view-home">
+    <!-- Hero -->
+    <header class="hero">
+      <div class="date-pill">
+        <span class="dot"></span>
+        <span>11.30 — 12.04</span>
+        <span class="sep">·</span>
+        <span>抽奖进行中</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="l">抽 <span class="latin foil">iPhone</span></span>
+        <span class="l">赢<span class="foil">百万</span>免单</span>
+      </h1>
+      <div class="hero-sub">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        保底得指定爆品 · 买一送一
+      </div>
+      <div class="hero-note">为大促预热 · <b>12.5 - 12.6 买一送一狂欢</b></div>
+    </header>
+
+    <!-- 奖品轮播 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sq"></span>
+        <span class="st">奖品池</span>
+        <span class="sr">共 10 款</span>
+        <span class="swipe">左右滑动
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </div>
+      <div class="carousel">
+        <div class="carousel-track" id="track">
+          <div class="prize-card gold">
+            <div class="card-img"><img src="assets/prize-iphone.jpg" alt="iPhone 16 Pro Max"></div>
+            <div class="card-info">
+              <span class="tag">惊喜大奖</span>
+              <div class="name gold-name">iPhone 16 Pro Max</div>
+              <div class="desc">金色旗舰 · 顶配</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/prize-coupon.jpg" alt="全场免单券"></div>
+            <div class="card-info">
+              <span class="tag">尊享好礼</span>
+              <div class="name">全场免单券</div>
+              <div class="desc">单次消费全免</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-boba.jpg" alt="珍珠奶茶"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">珍珠奶茶</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-mango.jpg" alt="杨枝甘露"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">杨枝甘露</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-grape.jpg" alt="芝士葡萄"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">芝士葡萄</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-lemon.jpg" alt="香水柠檬茶"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">香水柠檬茶</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-taro.jpg" alt="芋泥波波"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">芋泥波波</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-latte.jpg" alt="生椰拿铁"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">生椰拿铁</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-strawberry.jpg" alt="草莓啵啵"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">草莓啵啵</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+          <div class="prize-card red">
+            <div class="card-img"><img src="assets/drink-watermelon.jpg" alt="西瓜椰椰"></div>
+            <div class="card-info">
+              <span class="tag">指定饮品</span>
+              <div class="name">西瓜椰椰</div>
+              <div class="desc">买一送一</div>
+            </div>
+          </div>
+        </div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+
+    <!-- 抽奖按钮 -->
+    <section class="draw-zone">
+      <div class="draw-wrap" id="drawWrap">
+        <div class="draw-ring2"></div>
+        <div class="draw-ring"></div>
+        <div class="draw-btn" id="drawBtn" role="button" tabindex="0" aria-label="立即抽奖">
+          <div class="inner">
+            <div class="big">立即抽奖</div>
+          </div>
+        </div>
+      </div>
+      <div class="guarantee">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        参与即保底 · 得指定爆品买一送一
+      </div>
+    </section>
+
+    <!-- 任务中心 -->
+    <section class="tasks">
+      <div class="sec-head" style="padding-left:0;">
+        <span class="sq"></span>
+        <span class="st">做任务 · 赚次数</span>
+      </div>
+      <div class="task">
+        <div class="ticon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="tinfo">
+          <div class="tname">邀请好友</div>
+          <div class="tdesc">每邀请1位好友 +1次，邀满3人额外 +1次</div>
+        </div>
+        <button class="tbtn" id="taskInvite">去邀请</button>
+      </div>
+      <div class="task">
+        <div class="ticon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="tinfo">
+          <div class="tname">门店打卡</div>
+          <div class="tdesc">到任意门店完成打卡，得 1 次</div>
+        </div>
+        <button class="tbtn" id="taskCheckin">去打卡</button>
+      </div>
+      <div class="task">
+        <div class="ticon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
+        </div>
+        <div class="tinfo">
+          <div class="tname">添加企业福利官</div>
+          <div class="tdesc">添加企业微信福利官，得 1 次</div>
+        </div>
+        <button class="tbtn" id="taskWelfare">去添加</button>
+      </div>
+    </section>
+
+    <!-- 底部入口 -->
+    <nav class="foot-links">
+      <button class="foot-chip" id="linkRules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        活动规则
+      </button>
+      <button class="foot-chip" id="linkInvite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 10v6M19 13h6"/></svg>
+        邀请记录
+      </button>
+      <button class="foot-chip" id="linkPrizes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a1.8 1.8 0 0 1 0 3.6H9"/></svg>
+        奖品记录
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- 弹层：底部面板 -->
+<div class="sheet-mask" id="sheetMask"></div>
+<div class="sheet" id="sheet">
+  <div class="grip"></div>
+  <div class="shead">
+    <div class="stitle" id="sheetTitle">活动规则</div>
+    <button class="sclose" id="sheetClose" aria-label="关闭"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="sbody" id="sheetBody"></div>
+</div>
+
+<!-- 抽奖结果 -->
+<div class="result-mask" id="resultMask">
+  <div class="result-card">
+    <div class="confetti" id="confetti"></div>
+    <div class="r-title">二选一 · 任选其一</div>
+    <div class="r-prize" id="resultPrize">两件奖品任你挑，带走喜欢的那件</div>
+    <div class="r-options" id="rOptions">
+      <div class="r-opt" id="optA" role="button" tabindex="0" aria-label="选择左侧奖品">
+        <div class="r-opt-img"><img id="optImgA" alt=""></div>
+        <div class="r-opt-name" id="optNameA">…</div>
+        <div class="r-opt-sub" id="optSubA"></div>
+        <div class="r-opt-pick">选我</div>
+      </div>
+      <div class="r-vs">VS</div>
+      <div class="r-opt" id="optB" role="button" tabindex="0" aria-label="选择右侧奖品">
+        <div class="r-opt-img"><img id="optImgB" alt=""></div>
+        <div class="r-opt-name" id="optNameB">…</div>
+        <div class="r-opt-sub" id="optSubB"></div>
+        <div class="r-opt-pick">选我</div>
+      </div>
+    </div>
+    <div class="r-hint">点击任一件奖品即可领取，另一件自动作废</div>
+    <div class="r-btns">
+      <button class="r-keep" id="resultKeep">暂不选择</button>
+      <button class="r-go" id="resultGo">查看奖品记录</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 数据 ===== */
+const PRIZES = [
+  {name:"iPhone 16 Pro Max", tag:"惊喜大奖", cls:"gold", sub:"金色旗舰 · 顶配"},
+  {name:"全场免单券", tag:"尊享好礼", cls:"red", sub:"单次消费全免"},
+  {name:"珍珠奶茶", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"杨枝甘露", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"芝士葡萄", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"香水柠檬茶", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"芋泥波波", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"生椰拿铁", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"草莓啵啵", tag:"指定饮品", cls:"red", sub:"买一送一"},
+  {name:"西瓜椰椰", tag:"指定饮品", cls:"red", sub:"买一送一"}
+];
+/* 奖品图片取自静态轮播卡（index 对应卡顺序），保证发布链路静态可扫 */
+function prizeImg(i){
+  const card = document.querySelectorAll("#track .prize-card")[i];
+  const img = card ? card.querySelector("img") : null;
+  return img ? img.src : "";
+}
+
+const inviteRecords = [
+  {name:"小丸子", time:"今天 10:24", val:"+1次", desc:"邀请成功", gold:false},
+  {name:"阿哲", time:"今天 09:15", val:"+1次", desc:"邀请成功", gold:false},
+  {name:"邀满3人奖励", time:"昨天 21:03", val:"+1次", desc:"额外奖励", gold:true},
+  {name:"Lily", time:"昨天 20:41", val:"+1次", desc:"邀请成功", gold:false},
+  {name:"大熊", time:"昨天 18:02", val:"+1次", desc:"邀请成功", gold:false}
+];
+const prizeRecords = [
+  {name:"香水柠檬茶", sub:"指定饮品 · 买一送一", time:"今天 12:01", idx:5},
+  {name:"杨枝甘露", sub:"指定饮品 · 买一送一", time:"昨天 18:40", idx:3},
+  {name:"指定爆品买一送一", sub:"保底奖励 · 已发放", time:"11/30 00:30", idx:1}
+];
+const rules = [
+  {t:"活动时间", d:"2025年11月30日 00:00 至 12月4日 23:59，共 5 天。"},
+  {t:"参与方式", d:"完成下方任务获得抽奖次数：邀请好友、门店打卡、添加企业福利官均可获取抽奖机会。"},
+  {t:"奖品说明", d:"奖池含<b>iPhone 16 Pro Max、全场免单券</b>及<b>8 款指定饮品买一送一券</b>，中奖后可在本活动页查看奖品记录。"},
+  {t:"保底机制", d:"凡参与抽奖的用户，<b>保底可得指定爆品买一送一券</b>，人人有礼。"},
+  {t:"兑换方式", d:"中奖券请在 <b>12月5日-12月6日买一送一大促</b>期间到店或在小程序内兑换使用，具体以券面说明为准。"},
+  {t:"其他说明", d:"每个用户每日抽奖次数有限，邀请好友所得次数当日有效。本活动最终解释权归品牌所有。"}
+];
+
+/* ===== 状态 ===== */
+let drawCount = 5;
+const tasks = {invite:{done:false, count:0}, checkin:{done:false}, welfare:{done:false}};
+let prizeRecordsAll = [...prizeRecords];
+
+/* ===== 轮播：Coverflow ===== */
+const track = document.getElementById("track");
+const dots = document.getElementById("dots");
+const cardEls = [...track.querySelectorAll(".prize-card")];
+let activeIdx = 0;
+
+function buildDots(){
+  dots.innerHTML = cardEls.map((_,i)=>`<i class="${i===0?'on':''}" data-i="${i}"></i>`).join("");
+}
+function scrollToCard(i){
+  const card = cardEls[i];
+  const x = card.offsetLeft + card.offsetWidth/2 - track.clientWidth/2;
+  track.scrollTo({left:x, behavior:"smooth"});
+}
+function updateCarousel(){
+  const vw = track.clientWidth;
+  const center = track.scrollLeft + vw/2;
+  let best = 0, bestDist = Infinity;
+  cardEls.forEach((card,i)=>{
+    const cc = card.offsetLeft + card.offsetWidth/2;
+    const off = (cc - center)/vw;
+    const a = Math.abs(off);
+    if(a < bestDist){ bestDist = a; best = i; }
+    const scale = Math.max(0.82, 1 - a*0.16);
+    const ry = Math.max(-26, Math.min(26, off * -30));
+    const op = Math.max(0.4, 1 - a*0.35);
+    card.style.transform = `perspective(900px) rotateY(${ry}deg) scale(${scale})`;
+    card.style.opacity = op;
+    card.style.zIndex = 100 - Math.round(a*20);
+  });
+  if(best !== activeIdx){
+    activeIdx = best;
+    [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===activeIdx));
+  }
+}
+track.addEventListener("scroll", updateCarousel, {passive:true});
+window.addEventListener("resize", updateCarousel);
+cardEls.forEach((card,i)=>{
+  card.addEventListener("click", ()=>{ if(i!==activeIdx) scrollToCard(i); });
+});
+dots.addEventListener("click", e=>{
+  const d = e.target.closest("i");
+  if(d) scrollToCard(Number(d.dataset.i));
+});
+
+/* ===== 抽奖 ===== */
+const drawBtn = document.getElementById("drawBtn");
+const drawWrap = document.getElementById("drawWrap");
+function refreshCount(){
+  drawBtn.classList.toggle("disabled", drawCount<=0);
+  drawWrap.classList.toggle("is-off", drawCount<=0);
+}
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove("show"), 1900);
+}
+drawBtn.addEventListener("click", ()=>{
+  if(drawCount<=0){ toast("今日抽奖次数已用完，去做任务赚次数吧～"); return; }
+  doDraw();
+});
+drawBtn.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault(); drawBtn.click();} });
+
+let pendingChoice = null;
+function doDraw(){
+  drawBtn.classList.add("disabled");
+  drawCount--; refreshCount();
+  const mask = document.getElementById("resultMask");
+  const nameA = document.getElementById("optNameA");
+  const nameB = document.getElementById("optNameB");
+  const a = Math.floor(Math.random()*PRIZES.length);
+  let b = Math.floor(Math.random()*(PRIZES.length-1));
+  if(b>=a) b++;
+  const optA = PRIZES[a], optB = PRIZES[b];
+  mask.classList.add("show");
+  let spin = 0;
+  const timer = setInterval(()=>{
+    nameA.textContent = PRIZES[Math.floor(Math.random()*PRIZES.length)].name;
+    nameB.textContent = PRIZES[Math.floor(Math.random()*PRIZES.length)].name;
+    spin++;
+    if(spin>=14){
+      clearInterval(timer);
+      document.getElementById("optImgA").src = prizeImg(a);
+      document.getElementById("optNameA").textContent = optA.name;
+      document.getElementById("optSubA").textContent = optA.sub;
+      document.getElementById("optImgB").src = prizeImg(b);
+      document.getElementById("optNameB").textContent = optB.name;
+      document.getElementById("optSubB").textContent = optB.sub;
+      pendingChoice = {a, b};
+      drawBtn.classList.remove("disabled");
+      refreshCount();
+    }
+  }, 65);
+}
+
+/* 二选一：点击任一选项领取 */
+function claimPrize(key){
+  if(!pendingChoice) return;
+  const idx = pendingChoice[key];
+  const won = PRIZES[idx];
+  prizeRecordsAll.unshift({name:won.name, sub:won.sub, time:"刚刚", idx});
+  pendingChoice = null;
+  document.getElementById("resultMask").classList.remove("show");
+  toast("已获得「"+won.name+"」，可在奖品记录查看");
+}
+function bindOpt(el, key){
+  el.addEventListener("click", ()=>claimPrize(key));
+  el.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); claimPrize(key); } });
+}
+bindOpt(document.getElementById("optA"), "a");
+bindOpt(document.getElementById("optB"), "b");
+document.getElementById("resultKeep").addEventListener("click", ()=>{
+  document.getElementById("resultMask").classList.remove("show");
+});
+document.getElementById("resultGo").addEventListener("click", ()=>{
+  document.getElementById("resultMask").classList.remove("show");
+  openSheet("奖品获得记录", renderPrizeRecords());
+});
+
+/* ===== 任务 ===== */
+function renderTasks(){
+  const btns = {
+    invite: document.getElementById("taskInvite"),
+    checkin: document.getElementById("taskCheckin"),
+    welfare: document.getElementById("taskWelfare")
+  };
+  const btnLabel = {invite:"去邀请", checkin:"去打卡", welfare:"去添加"};
+  Object.keys(btns).forEach(k=>{
+    const b = btns[k];
+    b.classList.toggle("done", tasks[k].done);
+    b.textContent = tasks[k].done ? "已完成" : btnLabel[k];
+  });
+}
+document.getElementById("taskInvite").addEventListener("click", ()=>{
+  if(tasks.invite.done){ toast("今日邀请任务已完成"); return; }
+  openSheet("邀请好友赚次数", shareCardHtml());
+});
+document.getElementById("taskCheckin").addEventListener("click", ()=>{
+  if(tasks.checkin.done){ toast("今日打卡已完成"); return; }
+  completeTask("checkin");
+});
+document.getElementById("taskWelfare").addEventListener("click", ()=>{
+  if(tasks.welfare.done){ toast("已添加福利官"); return; }
+  completeTask("welfare");
+});
+function completeTask(key){
+  tasks[key].done = true;
+  drawCount++; refreshCount();
+  renderTasks();
+  const tips = {checkin:"打卡成功，+1 次抽奖机会", welfare:"添加成功，+1 次抽奖机会"};
+  toast(tips[key]);
+}
+
+/* ===== 弹层系统 ===== */
+const sheetMask = document.getElementById("sheetMask");
+const sheet = document.getElementById("sheet");
+const sheetTitle = document.getElementById("sheetTitle");
+const sheetBody = document.getElementById("sheetBody");
+function openSheet(title, html){
+  sheetTitle.textContent = title;
+  sheetBody.innerHTML = html;
+  sheetMask.classList.add("show");
+  sheet.classList.add("show");
+}
+function closeSheet(){
+  sheetMask.classList.remove("show");
+  sheet.classList.remove("show");
+}
+sheetMask.addEventListener("click", closeSheet);
+document.getElementById("sheetClose").addEventListener("click", closeSheet);
+
+function rulesHtml(){
+  return `<div class="rule-list">${rules.map((r,i)=>`
+    <div class="rule-item">
+      <div class="rt"><span class="num">${i+1}</span>${r.t}</div>
+      <div class="rd">${r.d}</div>
+    </div>`).join("")}</div>`;
+}
+function renderInviteRecords(){
+  return `<div class="rec-list">${inviteRecords.map(r=>`
+    <div class="rec">
+      <div class="ri">
+        <div class="rin">${r.name}</div>
+        <div class="rdesc">${r.desc}</div>
+        <div class="rtime">${r.time}</div>
+      </div>
+      <div class="rval ${r.gold?'gold':''}">${r.val}</div>
+    </div>`).join("")}</div>`;
+}
+function renderPrizeRecords(){
+  if(!prizeRecordsAll.length) return `<div class="empty">还没有中奖记录，快去抽奖吧</div>`;
+  return `<div class="rec-list">${prizeRecordsAll.map(r=>`
+    <div class="rec">
+      <div class="rav"><img src="${prizeImg(r.idx)}" alt=""></div>
+      <div class="ri">
+        <div class="rin">${r.name}</div>
+        <div class="rdesc">${r.sub}</div>
+        <div class="rtime">${r.time}</div>
+      </div>
+    </div>`).join("")}</div>`;
+}
+function shareCardHtml(){
+  return `
+    <div class="share-card">
+      <div class="sc-t">邀好友 · 一起抽 iPhone</div>
+      <div class="sc-s">每邀请1位好友 +1次抽奖，邀满3人额外 +1次</div>
+      <div class="sc-prize">保底得指定爆品买一送一</div>
+    </div>
+    <div class="copy-link">
+      <input id="shareInput" readonly value="邀你一起抽iPhone，赢百万免单！点开即有机会：">
+      <button id="shareCopy">复制</button>
+    </div>
+    <button class="action-btn" id="shareConfirm">我已邀请好友</button>`;
+}
+document.getElementById("linkRules").addEventListener("click", ()=>openSheet("活动规则", rulesHtml()));
+document.getElementById("linkInvite").addEventListener("click", ()=>openSheet("邀请记录", renderInviteRecords()));
+document.getElementById("linkPrizes").addEventListener("click", ()=>openSheet("奖品获得记录", renderPrizeRecords()));
+document.getElementById("topRules").addEventListener("click", ()=>openSheet("活动规则", rulesHtml()));
+
+/* 弹层内动态按钮（事件委托） */
+sheetBody.addEventListener("click", e=>{
+  if(e.target.id==="shareCopy"){
+    const inp = document.getElementById("shareInput");
+    inp.select();
+    try{ document.execCommand("copy"); }catch(_){}
+    toast("邀请文案已复制，快去分享给好友吧");
+  }
+  if(e.target.id==="shareConfirm"){
+    if(!tasks.invite.done){
+      tasks.invite.done = true; tasks.invite.count++;
+      drawCount++; refreshCount(); renderTasks();
+      inviteRecords.unshift({name:"好友已接受邀请", time:"刚刚", val:"+1次", desc:"邀请成功", gold:false});
+      if(tasks.invite.count===3){
+        drawCount++; refreshCount();
+        inviteRecords.unshift({name:"邀满3人奖励", time:"刚刚", val:"+1次", desc:"额外奖励", gold:true});
+      }
+      closeSheet();
+      toast("邀请成功，+1 次抽奖机会");
+    } else {
+      closeSheet();
+    }
+  }
+});
+
+/* 彩带 */
+function spawnConfetti(){
+  const c = document.getElementById("confetti");
+  const colors = ["#F0BD3F","#D3202B","#FBE7A8","#B8851F","#E83A45"];
+  c.innerHTML = "";
+  for(let i=0;i<26;i++){
+    const s = document.createElement("i");
+    s.style.left = (Math.random()*100)+"%";
+    s.style.top = (Math.random()*-20)+"%";
+    s.style.background = colors[i%colors.length];
+    s.style.animationDelay = (Math.random()*0.6)+"s";
+    s.style.width = (6+Math.random()*6)+"px";
+    s.style.height = (10+Math.random()*8)+"px";
+    c.appendChild(s);
+  }
+}
+document.getElementById("resultMask").addEventListener("click", e=>{
+  if(e.target.id==="resultMask") document.getElementById("resultMask").classList.remove("show");
+});
+const maskObserver = new MutationObserver(()=>{
+  if(document.getElementById("resultMask").classList.contains("show")) spawnConfetti();
+});
+maskObserver.observe(document.getElementById("resultMask"), {attributes:true, attributeFilter:["class"]});
+
+/* 漂浮金粒 */
+const dust = document.querySelector(".gold-dust");
+for(let i=0;i<16;i++){
+  const p = document.createElement("i");
+  p.style.left = (Math.random()*100)+"%";
+  p.style.width = p.style.height = (4+Math.random()*7)+"px";
+  p.style.animationDuration = (7+Math.random()*9)+"s";
+  p.style.animationDelay = (Math.random()*8)+"s";
+  dust.appendChild(p);
+}
+
+/* 初始化 */
+buildDots();
+refreshCount();
+renderTasks();
+updateCarousel();
+</script>
+</body>
+</html>
