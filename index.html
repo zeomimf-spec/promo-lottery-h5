@@ -742,7 +742,7 @@ function updateCarousel(){
 
 /* ===== 自动播放：进入 2s 后缓慢左移，手动滑动后停 2s 再续播 ===== */
 const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const AUTO_SPEED = 22;        // px/s，缓慢左移
+const AUTO_SPEED = 44;        // px/s，缓慢左移
 const START_DELAY = 2000;     // 访问 2s 后开始
 const RESUME_DELAY = 2000;    // 停止滑动后 2s 续播
 let isPlaying=false, rafId=null, lastTs=0, autoX=0;
