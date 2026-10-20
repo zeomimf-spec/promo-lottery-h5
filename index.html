@@ -37,19 +37,12 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 button{font-family:inherit;}
-/* ===== 桌面端手机外框 ===== */
+/* ===== 桌面端：背景铺满，内容居中为移动列 ===== */
+.app{width:100%;max-width:100%;margin:0 auto;position:relative;min-height:100vh;background:var(--bg-page);overflow-x:hidden;}
 @media(min-width:520px){
-  body{
-    background:linear-gradient(180deg,#E8EAF0,#D9DCE5);
-    display:flex;align-items:flex-start;justify-content:center;min-height:100vh;
-    padding:36px 0;
-  }
-  .app{
-    width:430px;min-height:auto;border-radius:28px;overflow:hidden;
-    box-shadow:0 40px 90px rgba(20,24,40,.22);
-  }
+  body{background:#E9EBF0;}
+  .topbar,.content{max-width:480px;margin-left:auto;margin-right:auto;}
 }
-.app{max-width:430px;margin:0 auto;position:relative;min-height:100vh;background:var(--bg-page);overflow:hidden;}
 
 /* ===== 背景层 ===== */
 .app-bg{
@@ -143,8 +136,15 @@ button{font-family:inherit;}
   background:linear-gradient(170deg,#FFF8E4 0%,#FCE9BE 55%,#F6D78C 100%);
   border-color:#F2D598;
 }
-.prize-card.red{background:linear-gradient(180deg,#FFFFFF 0%,#FFF6F4 100%);}
-.prize-card.red::before{display:none;}
+.prize-card.red{
+  background:linear-gradient(178deg,#D7242F 0%,#C01824 52%,#A21520 100%);
+  border-color:rgba(253,236,184,.4);
+  box-shadow:0 8px 18px rgba(160,20,30,.28);
+}
+.prize-card.red::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(115deg,transparent 0 36px,rgba(255,255,255,.07) 36px 38px);
+}
 .prize-card.gold::after{
   content:"";position:absolute;top:0;bottom:0;width:46%;left:-60%;z-index:3;
   background:linear-gradient(105deg,transparent 5%,rgba(255,255,255,.72) 50%,transparent 95%);
@@ -159,16 +159,13 @@ button{font-family:inherit;}
 .card-info{position:relative;z-index:2;padding:10px 8px 13px;text-align:center;}
 .card-info .tag{
   position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;
-  background:var(--brand-grad);color:#fff;border:none;
+  background:var(--gold-grad);color:#8A5D18;border:none;
   font-size:10px;font-weight:700;padding:3px 11px;border-radius:999px;
-  box-shadow:0 4px 10px rgba(245,52,75,.3);
+  box-shadow:0 4px 10px rgba(201,149,44,.3);
 }
-.prize-card.gold .card-info .tag{
-  background:var(--gold-grad);color:#8A5D18;box-shadow:0 4px 10px rgba(201,149,44,.3);
-}
-.card-info .name{font-size:13px;font-weight:800;color:var(--ink-1);margin-top:4px;letter-spacing:.3px;}
+.card-info .name{font-size:13px;font-weight:800;color:#fff;margin-top:4px;letter-spacing:.3px;}
 .card-info .name.gold-name{color:#8A5D18;}
-.card-info .desc{font-size:10px;color:var(--ink-4);margin-top:2px;}
+.card-info .desc{font-size:10px;color:rgba(255,238,200,.92);margin-top:2px;}
 .prize-card.gold .card-info .desc{color:#A67C33;}
 .dots{display:flex;justify-content:center;gap:6px;padding:4px 0 0;}
 .dots i{width:6px;height:6px;border-radius:50%;background:#D7D9E0;transition:.25s;cursor:pointer;}
